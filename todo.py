@@ -23,9 +23,11 @@ class Todo:
     def get_done(self):
         return self.done
     
-    def set_done(self, value):
-        self.done = value
+    def set_done(self):
+        self.done = True
     
+    def set_undone(self):
+        self.done = False
 
 
 todoList: List[Todo] = []
@@ -35,13 +37,9 @@ todoList.append(Todo('3', 'test3', 'test desc 3', 'True'))
 todoList.append(Todo('4', 'test4', 'test desc 4', 'True'))
 
 def todo_list() -> List[Todo]:
-    table = []
-    for todo in todoList:
-        table.append([todo.key, todo.title, todo.desc, todo.done])
-        
-    print(tabulate(table, headers=['key', 'title', 'description', 'done?']))
     return todoList
 
-
-todo_list()
-
+def set_done(key) -> None:
+    todo = next((x for x in todoList if x.key == key), None)
+    todo.set_done()
+    print(todo.done)
